@@ -1,0 +1,121 @@
+1-src
+│ App.jsx
+│ index.js
+│ index.css
+│ jogadores.js
+│
+└── components
+    │ Header.jsx
+    │ Main.jsx
+    │ Card.jsx
+    └── Footer.jsx
+
+2. Criar os componentes básicos
+Header.jsx
+function Header() {
+  return (
+    <header>
+      <h1>⚽ Grandes Jogadores do Futebol</h1>
+    </header>
+  );
+}
+
+export default Header;
+
+
+
+Footer.jsx
+function Footer() {
+  return (
+    <footer>
+      <p>© 2026 - Aplicação React Futebol</p>
+    </footer>
+  );
+}
+
+export default Footer;
+
+
+3. Criar o componente Card
+
+Primeiro defina como será um único card:
+
+function Card(props) {
+  return (
+    <div className="card">
+      <img src={props.imagem} alt={props.nome} />
+      <h2>{props.nome}</h2>
+      <h3>{props.clube}</h3>
+      <p>{props.descricao}</p>
+    </div>
+  );
+}
+
+export default Card;
+
+4. Criar o arquivo de dados (jogadores.js)
+const jogadores = [
+  {
+    id: 1,
+    nome: "Lionel Messi",
+    clube: "Inter Miami",
+    descricao: "Campeão do Mundo pela Argentina.",
+    imagem: "..."
+  },
+  ...
+];
+
+export default jogadores;
+
+
+5. Criar o Main.jsx
+
+Importar os dados e usar .map() para gerar os cards:
+
+import Card from "./Card";
+import jogadores from "../jogadores";
+
+function Main() {
+  return (
+    <main className="container">
+      {jogadores.map((jogador) => (
+        <Card
+          key={jogador.id}
+          nome={jogador.nome}
+          clube={jogador.clube}
+          descricao={jogador.descricao}
+          imagem={jogador.imagem}
+        />
+      ))}
+    </main>
+  );
+}
+
+export default Main;
+
+
+6. Montar o App.jsx
+import Header from "./components/Header";
+import Main from "./components/Main";
+import Footer from "./components/Footer";
+
+function App() {
+  return (
+    <>
+      <Header />
+      <Main />
+      <Footer />
+    </>
+  );
+}
+
+export default App;
+
+8. Renderizar no index.js (React 19)
+import { createRoot } from "react-dom/client";
+import App from "./App";
+import "./index.css";
+
+createRoot(document.getElementById("root")).render(
+  <App />
+);
